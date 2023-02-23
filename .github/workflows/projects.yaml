@@ -5,10 +5,10 @@ on:
       - assigned
 jobs:
   issues-card-assignment:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: alex-page/github-project-automation-plus@v0.8.3
-      with:
-        project: Project-Test
-        column: Todo
-        repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: alex-page/github-project-automation-plus@v0.8.3
+        with:
+          project: Project-Test
+          column: Todo
+          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
