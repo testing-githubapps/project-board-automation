@@ -11,6 +11,6 @@ jobs:
       - uses: actions/add-to-project@RELEASE_VERSION
         with:
           project-url: https://github.com/orgs/testing-githubapps/projects/1
-          github-token: ${{ PERSONAL_ACCESS_TOKEN }}
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           labeled: bug
           label-operator: OR
