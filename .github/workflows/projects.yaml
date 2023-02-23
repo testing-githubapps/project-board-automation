@@ -2,7 +2,8 @@ name: Github Project Board Assignment
 on:
   issues:
     types:
-      - assigned
+      - opened
+
 jobs:
   issues-card-assignment:
     runs-on: ubuntu-latest
