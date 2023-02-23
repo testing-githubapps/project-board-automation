@@ -8,7 +8,7 @@ jobs:
   issues-card-assignment:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/add-to-project@RELEASE_VERSION
+      - uses: actions/add-to-project@v0.4.0
         with:
           project-url: https://github.com/orgs/testing-githubapps/projects/1
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
