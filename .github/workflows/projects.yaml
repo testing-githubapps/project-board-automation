@@ -13,4 +13,4 @@ jobs:
           project-url: https://github.com/orgs/testing-githubapps/projects/1
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           labeled: bug
-          label-operator: OR
+          label-operator: NOT
