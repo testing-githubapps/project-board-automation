@@ -12,3 +12,4 @@ jobs:
         with:
           project-url: ${{ secrets.PROJECTS_BOARD_URL }}
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          labeled: ACME
