@@ -2,8 +2,7 @@ name: Github Project Board Assignment
 on:
   issues:
     types:
-      - opened
-
+      - labeled
 jobs:
   issues-card-assignment:
     runs-on: ubuntu-latest
@@ -12,4 +11,5 @@ jobs:
         with:
           project-url: ${{ secrets.PROJECTS_BOARD_URL }}
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          labeled: ACME
+          labeled: wontfix, invalid, duplicate
+          label-operator: NOT
