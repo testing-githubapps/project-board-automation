@@ -22,7 +22,7 @@ jobs:
     - name: Grabbing Project Data
       env: 
         GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        ORGANIZATION: ${{ github.event.organization.name }}
+        ORGANIZATION: testing-githubapps
         PROJECT_NUMBER: 1
       run: |
         gh api graphql -f query='
