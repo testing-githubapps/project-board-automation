@@ -19,6 +19,7 @@ jobs:
     needs: publish-to-project
     runs-on: ubuntu-latest
     steps:
+    - name: Grabbing Project Data
       env: 
         GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         ORGANIZATION: ${{ github.event.organization.name }}
