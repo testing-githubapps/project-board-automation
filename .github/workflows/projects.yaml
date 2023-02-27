@@ -16,7 +16,7 @@ jobs:
   #        label-operator: NOT
 
   set-custom-field:
-    needs: publish-to-project
+    #needs: publish-to-project
     runs-on: ubuntu-latest
     steps:
     - name: Grabbing Project Data
