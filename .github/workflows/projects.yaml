@@ -1,10 +1,11 @@
 name: Github Project Board Assignment
 on:
+  workflow_dispatch:
   issues:
     types:
       - labeled
 jobs:
-  issues-card-assignment:
+  publish-to-project:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/add-to-project@v0.4.0
@@ -13,3 +14,42 @@ jobs:
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           labeled: wontfix, invalid, duplicate
           label-operator: NOT
+
+  set-custom-field:
+    needs: publish-to-project
+    runs-on: ubuntu-latest
+    steps:
+      env: 
+        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        ORGANIZATION: ${{ github.event.organization.name }}
+        PROJECT_NUMBER: 1
+      run: |
+        gh api graphql -f query='
+          query($org: String!, $number: Int!) {
+            organization(login: $org){
+              projectV2(number: $number) {
+                id
+                fields(first:20) {
+                  nodes {
+                    ... onProjectV2Field {
+                      id
+                      name
+                    }
+                    ... on ProjectV2SingleSelectField {
+                      id
+                      name
+                      options {
+                        id
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER > project_data.json
+
+          echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >> $GITHUB_ENV
+          echo 'DATE_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Date posted") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'STATUS_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'TODO_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="Todo") |.id' project_data.json) >> $GITHUB_ENV
