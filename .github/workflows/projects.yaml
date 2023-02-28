@@ -73,6 +73,7 @@ jobs:
     - name: Set Client Field
       env:
         GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        CLIENT_NAME: ${{ secrets.CLIENT_NAME }}
       run: |
         gh api graphql -f query='
           mutation (
@@ -93,4 +94,4 @@ jobs:
                 id
                 }
             }
-          }' -f project=$PROJECT_ID -f item=$ITEM_ID -f client_field=$CLIENT_FIELD_ID -f client_value='Liatrio - Internal' --silent
+          }' -f project=$PROJECT_ID -f item=$ITEM_ID -f client_field=$CLIENT_FIELD_ID -f client_value=$CLIENT_NAME --silent
