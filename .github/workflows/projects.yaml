@@ -93,4 +93,4 @@ jobs:
                 id
                 }
             }
-          }' -f project=$PROJECT_ID -f item=$ISSUE_ID -f client_field=$CLIENT_FIELD_ID -f client_value='Liatrio - Internal' --silent
+          }' -f project=$PROJECT_ID -f item=$ITEM_ID -f client_field=$CLIENT_FIELD_ID -f client_value='Liatrio - Internal' --silent
