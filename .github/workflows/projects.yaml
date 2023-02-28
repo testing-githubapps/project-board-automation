@@ -5,18 +5,18 @@ on:
     types:
       - labeled
 jobs:
-  #publish-to-project:
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #    - uses: actions/add-to-project@v0.4.0
-  #      with:
-  #       project-url: ${{ secrets.PROJECTS_BOARD_URL }}
-  #        github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-  #        labeled: wontfix, invalid, duplicate
-  #        label-operator: NOT
+  publish-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/add-to-project@v0.4.0
+        with:
+         project-url: ${{ secrets.PROJECTS_BOARD_URL }}
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          labeled: wontfix, invalid, duplicate
+          label-operator: NOT
 
   set-custom-field:
-    #needs: publish-to-project
+    needs: publish-to-project
     runs-on: ubuntu-latest
     steps:
     - name: Grabbing Project Data
@@ -61,6 +61,7 @@ jobs:
     - name: Set Client Field
       env:
         GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        ISSUE_ID: ${{ github.event.issue.node_id }}
       run: |
         gh api graphql -f query='
           mutation (
@@ -95,4 +96,4 @@ jobs:
                 id
               }
             }
-          }' -f project=$PROJECT_ID -f item='14' -f status_field=$CLIENT_FIELD_ID -f status_value='Liatrio - Internal' -f date_field=$DATE_FIELD_ID -f date_value=$DATE --silent
+          }' -f project=$PROJECT_ID -f item= -f status_field=$CLIENT_FIELD_ID -f status_value='Liatrio - Internal' -f date_field=$DATE_FIELD_ID -f date_value=$DATE --silent
