@@ -94,4 +94,4 @@ jobs:
                 id
                 }
             }
-          }' -f project=$PROJECT_ID -f item=$ITEM_ID -f client_field=$CLIENT_FIELD_ID -f client_value=1 --silent
+          }' -f project=$PROJECT_ID -f item=$ITEM_ID -f client_field=$CLIENT_FIELD_ID -f client_value=$CLIENT_OPTION_ID --silent
