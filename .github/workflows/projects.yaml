@@ -57,16 +57,16 @@ jobs:
     - name: Add PR to project
       env:
         GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        PR_ID: ${{ github.event.pull_request.node_id }}
+        ISSUE_ID: ${{ github.event.issue.node_id }}
       run: |
         item_id="$( gh api graphql -f query='
-          mutation($project:ID!, $pr:ID!) {
-            addProjectV2ItemById(input: {projectId: $project, contentId: $pr}) {
+          mutation($project:ID!, $issue:ID!) {
+            addProjectV2ItemById(input: {projectId: $project, contentId: $issue}) {
               item {
                 id
               }
             }
-          }' -f project=$PROJECT_ID -f pr=$PR_ID --jq '.data.addProjectV2ItemById.item.id')"
+          }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectV2ItemById.item.id')"
 
           echo 'ITEM_ID='$item_id >> $GITHUB_ENV
 
