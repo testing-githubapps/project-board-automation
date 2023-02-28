@@ -53,11 +53,26 @@ jobs:
           echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >> $GITHUB_ENV
           echo 'CLIENT_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Client") | .id' project_data.json) >> $GITHUB_ENV
           echo 'CLIENT_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Client") | .options[] | select(.name=="Liatrio - Internal") |.id' project_data.json) >> $GITHUB_ENV
+    
+    - name: Add PR to project
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONNAL_ACCESS_TOKEN }}
+          ISSUE_ID: ${{ github.event.issue.node_id }}
+        run: |
+          item_id="$( gh api graphql -f query='
+            mutation($project:ID!, $pr:ID!) {
+              addProjectV2ItemById(input: {projectId: $project, contentId: $pr}) {
+                item {
+                  id
+                }
+              }
+            }' -f project=$PROJECT_ID -f pr=$PR_ID --jq '.data.addProjectV2ItemById.item.id')"
 
+            echo 'ITEM_ID='$item_id >> $GITHUB_ENV
+    
     - name: Set Client Field
       env:
         GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        ISSUE_ID: ${{ github.event.issue.node_id }}
       run: |
         gh api graphql -f query='
           mutation (
@@ -78,4 +93,4 @@ jobs:
                 id
                 }
             }
-          }' -f project=$PROJECT_ID -f item=$ISSUE_ID -f client_field=$CLIENT_FIELD_ID -f client_value='Liatrio - Internal' --silent
+          }' -f project=$PROJECT_ID -f item=$ITEM_ID -f client_field=$CLIENT_FIELD_ID -f client_value='Liatrio - Internal' --silent
