@@ -56,8 +56,6 @@ jobs:
           echo 'CLIENT_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Client") | .options[] | select(.name=="Liatrio - Internal") |.id' project_data.json) >> $GITHUB_ENV
     
       name: Set fields
-      env:
-        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       run: |
         gh api graphql -f query='
           mutation (
