@@ -56,7 +56,7 @@ jobs:
 
     - name: Add PR to project
       env:
-        GITHUB_TOKEN: ${{ secrets.YOUR_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         PR_ID: ${{ github.event.pull_request.node_id }}
       run: |
         item_id="$( gh api graphql -f query='
