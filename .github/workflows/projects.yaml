@@ -96,4 +96,4 @@ jobs:
                 id
               }
             }
-          }' -f project=$PROJECT_ID -f item= -f status_field=$CLIENT_FIELD_ID -f status_value='Liatrio - Internal' -f date_field=$DATE_FIELD_ID -f date_value=$DATE --silent
+          }' -f project=$PROJECT_ID -f item=$ISSUE_ID -f status_field=$CLIENT_FIELD_ID -f status_value='Liatrio - Internal' -f date_field=$DATE_FIELD_ID -f date_value=$DATE --silent
