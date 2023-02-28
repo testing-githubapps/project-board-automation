@@ -52,7 +52,7 @@ jobs:
 
           echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >> $GITHUB_ENV
           echo 'CLIENT_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .id' project_data.json) >> $GITHUB_ENV
-          echo 'CLIENT_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="blahblah") |.id' project_data.json) 
+          echo 'CLIENT_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Status") | .options[] | select(.name=="blahblah") |.id' project_data.json) >> $GITHUB_ENV
 
     - name: Add PR to project
       env:
@@ -93,4 +93,4 @@ jobs:
                 id
                 }
             }
-          }' -f project=$PROJECT_ID -f item=$ITEM_ID -f client_field=$CLIENT_FIELD_ID -f client_value=$CLIENT_OPTION_ID --silent
+          }' -f project=$PROJECT_ID -f item=$ITEM_ID -f client_field=$CLIENT_FIELD_ID -f client_value=${{ env.CLIENT_OPTION_ID }} --silent
