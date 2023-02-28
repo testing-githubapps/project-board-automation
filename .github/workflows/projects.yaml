@@ -50,10 +50,10 @@ jobs:
               }
             }' -f org=$ORGANIZATION -F number=$PROJECT_NUMBER > project_data.json
 
-          echo '::add-mask::PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >> $GITHUB_ENV
-          echo '::add-mask::CLIENT_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Client") | .id' project_data.json) >> $GITHUB_ENV
-          echo '::add-mask::CLIENT_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Client") | .options[] | select(.name=="ACME") |.id' project_data.json) >> $GITHUB_ENV
-          echo '::add-mask::ITEM_ID'='$(jq  '.data.organization.projectV2.item.id | select ()')'
+          cat project_data.json
+          echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >> $GITHUB_ENV
+          echo 'CLIENT_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Client") | .id' project_data.json) >> $GITHUB_ENV
+          echo 'CLIENT_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Client") | .options[] | select(.name=="ACME") |.id' project_data.json) >> $GITHUB_ENV
     #- name: Add PR to project
     #  env:
     #    GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
