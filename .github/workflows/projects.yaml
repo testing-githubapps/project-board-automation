@@ -56,40 +56,40 @@ jobs:
           echo 'CLIENT_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Client") | .options[] | select(.name=="Liatrio - Internal") |.id' project_data.json) >> $GITHUB_ENV
     
       name: Set fields
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        run: |
-          gh api graphql -f query='
-            mutation (
-              $project: ID!
-              $item: ID!
-              $status_field: ID!
-              $status_value: String!
-              $date_field: ID!
-              $date_value: Date!
-            ) {
-              set_status: updateProjectV2ItemFieldValue(input: {
-                projectId: $project
-                itemId: $item
-                fieldId: $status_field
-                value: { 
-                  singleSelectOptionId: $status_value
-                  }
-              }) {
-                projectV2Item {
-                  id
-                  }
-              }
-              set_date_posted: updateProjectV2ItemFieldValue(input: {
-                projectId: $project
-                itemId: $item
-                fieldId: $date_field
-                value: { 
-                  date: $date_value
+      env:
+        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      run: |
+        gh api graphql -f query='
+          mutation (
+            $project: ID!
+            $item: ID!
+            $status_field: ID!
+            $status_value: String!
+            $date_field: ID!
+            $date_value: Date!
+          ) {
+            set_status: updateProjectV2ItemFieldValue(input: {
+              projectId: $project
+              itemId: $item
+              fieldId: $status_field
+              value: { 
+                singleSelectOptionId: $status_value
                 }
-              }) {
-                projectV2Item {
-                  id
+            }) {
+              projectV2Item {
+                id
                 }
+            }
+            set_date_posted: updateProjectV2ItemFieldValue(input: {
+              projectId: $project
+              itemId: $item
+              fieldId: $date_field
+              value: { 
+                date: $date_value
               }
-            }' -f project=$PROJECT_ID -f item=14 -f status_field=$CLIENT_FIELD_ID -f status_value='Liatrio - Internal' -f date_field=$DATE_FIELD_ID -f date_value=$DATE --silent
+            }) {
+              projectV2Item {
+                id
+              }
+            }
+          }' -f project=$PROJECT_ID -f item=14 -f status_field=$CLIENT_FIELD_ID -f status_value='Liatrio - Internal' -f date_field=$DATE_FIELD_ID -f date_value=$DATE --silent
