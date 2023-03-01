@@ -54,7 +54,7 @@ jobs:
           cat project_data.json
           echo 'PROJECT_ID='$(jq '.data.organization.projectV2.id' project_data.json) >> $GITHUB_ENV
           echo 'CLIENT_FIELD_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Client") | .id' project_data.json) >> $GITHUB_ENV
-          echo 'CLIENT_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Client") | .options[] | select(.name==$CLIENT_NAME) |.id' project_data.json) >> $GITHUB_ENV
+          echo 'CLIENT_OPTION_ID='$(jq '.data.organization.projectV2.fields.nodes[] | select(.name== "Client") | .options[] | select(.name== ${{ env.CLIENT_NAME }}) |.id' project_data.json) >> $GITHUB_ENV
     
     - name: Add PR to project
       env:
