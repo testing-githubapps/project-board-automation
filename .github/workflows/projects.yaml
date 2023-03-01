@@ -1,6 +1,5 @@
 name: Github Project Board Assignment
 on:
-  workflow_dispatch:
   issues:
     types:
       - created
