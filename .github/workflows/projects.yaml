@@ -2,7 +2,7 @@ name: Github Project Board Assignment
 on:
   issues:
     types:
-      - created
+      - opened
 jobs:
   #publish-to-project:
   #  runs-on: ubuntu-latest
