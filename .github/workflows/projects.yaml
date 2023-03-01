@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   issues:
     types:
-      - labeled
+      - created
 jobs:
   #publish-to-project:
   #  runs-on: ubuntu-latest
