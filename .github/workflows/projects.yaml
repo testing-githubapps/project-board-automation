@@ -4,18 +4,7 @@ on:
     types:
       - opened
 jobs:
-  #publish-to-project:
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #  - uses: actions/add-to-project@v0.4.0
-  #    with:
-  #        project-url: ${{ secrets.PROJECTS_BOARD_URL }}
-  #        github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-  #       labeled: wontfix, invalid, duplicate
-  #        label-operator: NOT
-
   set-custom-field:
-   # needs: publish-to-project
     runs-on: ubuntu-latest
     steps:
     - name: Grabbing Project Data
