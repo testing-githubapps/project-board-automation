@@ -2,3 +2,5 @@
 .github/** @testing-githubapps/testing-action-teams
 
 docs/** @testing-githubapps/testing-docs-team
+
+build/
