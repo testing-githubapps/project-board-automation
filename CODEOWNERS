@@ -1,2 +1,4 @@
 # These owners will be responsible for the following:
-* @testing-githubapps/testing-teams
+.github/** @testing-githubapps/testing-action-teams
+
+docs/** @testing-githubapps/testing-docs-team
